@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/ai-actions-logo" height="300" alt="AI Actions"/>
+  <img src="./public/ai-actions-logo.png" height="300" alt="AI Actions"/>
 </p>
 <p align="center">
   <em>Take Your Work OS to the Next Level with AI-Powered Actions</em>
