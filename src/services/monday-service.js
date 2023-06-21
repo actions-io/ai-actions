@@ -6,26 +6,27 @@ const getColumnValue = async (token, itemId, columnId) => {
     mondayClient.setToken(token);
 
     const query = `query($itemId: [Int], $columnId: [String]) {
-        items (ids: $itemId) {
-          column_values(ids:$columnId) {
-            value
-          }
+      items (ids: $itemId) {
+        column_values(ids:$columnId) {
+          value
         }
-      }`;
+      }
+    }`;
+
     const variables = { columnId, itemId };
 
     const response = await mondayClient.api(query, { variables });
+    console.log('[DEBUG] Query column value response:', JSON.stringify(response, null, 2));
 
-    console.log('raw response:', JSON.stringify(response, null, 2));
-
-    const value = response.data.items[0].column_values[0].value;
+    // TODO(Anatoly): Refactor & Introduce support for more column types.
+    const rawValue = response.data.items[0].column_values[0].value;
     try {
-      obj = JSON.parse(value);
-      console.log('obj', obj);
+      obj = JSON.parse(rawValue);
+      console.log('[DEBUG] Column object:', obj);
       return obj.text;
     } catch (err) {
       console.error(err);
-      return value;
+      return rawValue;
     }
   } catch (err) {
     console.error(err);

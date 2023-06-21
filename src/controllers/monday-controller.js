@@ -41,8 +41,8 @@ async function executeAction(req, res) {
   }
 }
 
-// TODO(Anatoly): Route image generation and upload.
-// TODO(Anatoly): Route AI Assistant text transformation.
+// TODO(Anatoly): Route for Image generation and upload.
+// TODO(Anatoly): Route for AI Assistant text transformation.
 
 // Route: Get available transformation types.
 // TODO(Anatoly): Change to prompt templates.
