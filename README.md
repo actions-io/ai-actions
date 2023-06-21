@@ -1,7 +1,7 @@
 # AI Actions – monday.com AI App Hackathon Participant
 ## Take Your Work OS to the Next Level with AI-Powered Actions
 
-![AI Actions Logo](./public/actions-logo)
+![AI Actions Logo](./public/actions-logo.png)
 
 
 ## Credits for projects used for inspiration
