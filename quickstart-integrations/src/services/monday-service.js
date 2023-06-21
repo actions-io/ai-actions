@@ -15,7 +15,18 @@ const getColumnValue = async (token, itemId, columnId) => {
     const variables = { columnId, itemId };
 
     const response = await mondayClient.api(query, { variables });
-    return response.data.items[0].column_values[0].value;
+
+    console.log('raw response:', JSON.stringify(response, null, 2));
+
+    const value = response.data.items[0].column_values[0].value;
+    try {
+      obj = JSON.parse(value);
+      console.log('obj', obj);
+      return obj.text;
+    } catch (err) {
+      console.error(err);
+      return value;
+    }
   } catch (err) {
     console.error(err);
   }
@@ -25,12 +36,12 @@ const changeColumnValue = async (token, boardId, itemId, columnId, value) => {
   try {
     const mondayClient = initMondayClient({ token });
 
-    const query = `mutation change_column_value($boardId: Int!, $itemId: Int!, $columnId: String!, $value: JSON!) {
-        change_column_value(board_id: $boardId, item_id: $itemId, column_id: $columnId, value: $value) {
-          id
-        }
+    const query = `mutation ($boardId: Int!, $itemId: Int!, $columnId: String!, $value: String!) {
+      change_simple_column_value (board_id: $boardId, item_id: $itemId, column_id: $columnId, value: $value) {
+        id
       }
-      `;
+    }`;
+
     const variables = { boardId, columnId, itemId, value };
 
     const response = await mondayClient.api(query, { variables });
