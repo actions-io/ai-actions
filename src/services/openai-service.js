@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const getCompletion = async (prompt:string) => {
+const getCompletion = async (prompt) => {
   try {
     const completions = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -28,6 +28,6 @@ const getCompletion = async (prompt:string) => {
   }
 }
 
-module exports = {
+module.exports = {
   getCompletion,
 }

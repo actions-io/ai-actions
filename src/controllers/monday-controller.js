@@ -1,4 +1,5 @@
 const mondayService = require('../services/monday-service');
+const openAiService = require('../services/openai-service');
 const transformationService = require('../services/transformation-service');
 const { TRANSFORMATION_TYPES } = require('../constants/transformation');
 
@@ -25,11 +26,24 @@ async function executeAction(req, res) {
       return res.status(200).send({});
     }
 
+    if (typeof text !== 'string' || !text) {
+      return res.status(500).send({ message: 'Cannot read source value or it is empty' });
+    }
+
     // Apply text transformations.
-    const transformedText = transformationService.transformText(
+    /*const transformedText = transformationService.transformText(
       text,
       transformationType ? transformationType.value : 'TO_UPPER_CASE'
+    );*/
+
+    // AI transformation.
+    const transformedText = await openAiService.getCompletion(
+      'Summarize following text in 1 sentence: ' + text
     );
+
+    if (typeof transformedText !== 'string' || !transformedText) {
+      return res.status(500).send({ message: 'Transformed text is empty' });
+    }
 
     // Set new value for target column.
     await mondayService.changeColumnValue(shortLivedToken, boardId, itemId, targetColumnId, transformedText);

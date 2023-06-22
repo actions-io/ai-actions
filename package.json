@@ -1,7 +1,7 @@
 {
-  "name": "monday-integration-quickstart",
+  "name": "ai-actions",
   "version": "0.0.1",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "scripts": {
     "start": "npm run stop && npm run server",
     "server": "nodemon ./src/app.js",
@@ -20,7 +20,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.0",
     "monday-sdk-js": "^0.1.4",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "openai": "^3.3.0"
   },
   "devDependencies": {
     "@mondaydotcomorg/tunnel": "^0.4.1",
