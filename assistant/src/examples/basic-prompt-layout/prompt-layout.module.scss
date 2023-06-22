@@ -1,0 +1,51 @@
+.main {
+  padding-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  margin: 12px;
+}
+
+.footer {
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+}
+
+.groupsDropdown {
+  max-height: 24px;
+  margin-bottom: 10px;
+  width: 90vw;
+}
+
+.columnsDropdown {
+  max-height: 24px;
+  margin-bottom: 10px;
+  width: 90vw;
+}
+
+.columnsDropdownMenuWrapper {
+  max-height: 24px;
+}
+
+.prompt {
+  width: 90vw;
+}
+
+.emptyParagraph {
+  width: 90vw;
+  margin-top: 10px;
+}
+
+.paragraph {
+  width: 90vw;
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
