@@ -29,6 +29,13 @@ Automatic pipelines that makes your monday.com boards AI-powered, eliminating ma
 - **Content Creators and Bloggers:** AI Actions can auto-generate content briefs, summarize long-form content, extract keywords for SEO, and automate the publication process.
 - **HR and Recruitment:** AI Actions can analyze job applications, shortlist candidates based on certain criteria, and auto-generate interview invitations or rejection letters.
 
+## Roadmap
+- Introduce prompt templates library & manager
+- Generate images using AI Assistant and Workflows
+- Generate sub-items using AI Assistant and Workflows
+- Changes preview for AI Assistant
+- Work with multiple columns and conditions
+
 ## Acknowledgements
 - [mondaycom/welcome-apps | quickstart-integrations](https://github.com/mondaycom/welcome-apps/tree/master/apps/quickstart-integrations) by Dor Shaked
 - [yuhgto/monday-ai-prompt-template](https://github.com/yuhgto/monday-ai-prompt-template) by yuhgto Dipro Bhowmik and ShayElkana
