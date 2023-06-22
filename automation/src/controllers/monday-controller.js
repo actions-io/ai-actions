@@ -25,15 +25,18 @@ async function executeAction(req, res) {
 
     // Get current value from source column.
     const text = await mondayService.getColumnValue(shortLivedToken, itemId, sourceColumnId);
+    console.log('text', text);
     if (!text) {
       return res.status(200).send({});
     }
 
     if (typeof text !== 'string' || !text) {
+      console.log('Cannot read source value or it is empty');
       return res.status(500).send({ message: 'Cannot read source value or it is empty' });
     }
 
     if (!promptTemplateKey || !promptTemplateKey.value) {
+      console.log('Choose prompt: promptTemplateKey is empty');
       return res.status(500).send({ message: 'Choose prompt: promptTemplateKey is empty' });
     }
 

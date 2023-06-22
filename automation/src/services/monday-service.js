@@ -23,6 +23,9 @@ const getColumnValue = async (token, itemId, columnId) => {
     try {
       obj = JSON.parse(rawValue);
       console.log('[DEBUG] Column object:', obj);
+      if (typeof obj === 'string')
+        return obj
+
       return obj.text;
     } catch (err) {
       console.error(err);
