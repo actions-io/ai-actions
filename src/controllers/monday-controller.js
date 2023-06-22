@@ -71,6 +71,9 @@ async function executeAction(req, res) {
 // Route: Get available prompt templates.
 // TODO(Anatoly): Make prompt templates customizable for users.
 async function getPromptTemplates(req, res) {
+  console.log('[DEBUG] getPromptTemplates: session:', req.session);
+  console.log('[DEBUG] getPromptTemplates: body:', req.body);
+
   try {
     return res.status(200).send(PROMPT_TEMPLATES);
   } catch (err) {
