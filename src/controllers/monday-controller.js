@@ -1,7 +1,8 @@
 const mondayService = require('../services/monday-service');
 const openAiService = require('../services/openai-service');
 const transformationService = require('../services/transformation-service');
-const { TRANSFORMATION_TYPES } = require('../constants/transformation');
+const { PROMPT_TEMPLATES } = require('../constants/prompt-templates');
+const { PROMPT_OPTIONS } = require('../constants/prompt-options');
 
 // Route: Action text transformation.
 async function executeAction(req, res) {
@@ -15,10 +16,12 @@ async function executeAction(req, res) {
       itemId,
       sourceColumnId,
       targetColumnId,
-      transformationType
+      transformationType, // TODO(Anatoly): Rename to Prompt.
+      promptTemplateKey,
+      promptOptionsKey,
     } = inputFields;
 
-    console.log("[DEBUG] Action inputs:", inputFields);
+    console.log('[DEBUG] Action inputs:', inputFields);
 
     // Get current value from source column.
     const text = await mondayService.getColumnValue(shortLivedToken, itemId, sourceColumnId);
@@ -30,16 +33,23 @@ async function executeAction(req, res) {
       return res.status(500).send({ message: 'Cannot read source value or it is empty' });
     }
 
-    // Apply text transformations.
-    /*const transformedText = transformationService.transformText(
-      text,
-      transformationType ? transformationType.value : 'TO_UPPER_CASE'
-    );*/
+    if (!promptTemplateKey || !promptTemplateKey.value) {
+      return res.status(500).send({ message: 'Choose prompt: promptTemplateKey is empty' });
+    }
 
-    // AI transformation.
-    const transformedText = await openAiService.getCompletion(
-      'Summarize following text in 1 sentence: ' + text
-    );
+    // Build prompt for LLM.
+    let prompt = promptTemplateKey.value;
+    if (promptOptionsKey && promptOptionsKey.value) {
+      prompt = prompt + ' ' + promptOptionsKey.value;
+    }
+    prompt = prompt + `\n"""${text}"""`
+
+    console.log('[DEBUG] Prompt:', prompt);
+
+    // Request LLM to transform the text.
+    const transformedText = await openAiService.getCompletion(prompt);
+
+    console.log('[DEBUG] Completion:', transformedText);
 
     if (typeof transformedText !== 'string' || !transformedText) {
       return res.status(500).send({ message: 'Transformed text is empty' });
@@ -56,13 +66,24 @@ async function executeAction(req, res) {
 }
 
 // TODO(Anatoly): Route for Image generation and upload.
-// TODO(Anatoly): Route for AI Assistant text transformation.
+// TODO(Anatoly): Route for AI Assistant text transformations.
 
-// Route: Get available transformation types.
-// TODO(Anatoly): Change to prompt templates.
-async function getRemoteListOptions(req, res) {
+// Route: Get available prompt templates.
+// TODO(Anatoly): Make prompt templates customizable for users.
+async function getPromptTemplates(req, res) {
   try {
-    return res.status(200).send(TRANSFORMATION_TYPES);
+    return res.status(200).send(PROMPT_TEMPLATES);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Internal Server Error' });
+  }
+}
+
+// Route: Get available prompt options.
+// TODO(Anatoly): Make prompt options customizable for users.
+async function getPromptOptions(req, res) {
+  try {
+    return res.status(200).send(PROMPT_OPTIONS);
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: 'Internal Server Error' });
@@ -71,5 +92,6 @@ async function getRemoteListOptions(req, res) {
 
 module.exports = {
   executeAction,
-  getRemoteListOptions,
+  getPromptTemplates,
+  getPromptOptions,
 };
