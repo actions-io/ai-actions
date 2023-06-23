@@ -9,6 +9,8 @@ const PROMPT_TEMPLATES = [
   { title: 'simplify language', key: 'SIMPLIFY', value: 'simplify language of the following text' },
   { title: 'summarize', key: 'SUMMARIZE', value: 'summarize the following text' },
   { title: 'translate', key: 'TRANSLATE', value: 'translate the following text' },
+  { title: 'make sentiment analysis', key: 'SENTIMENT', value: 'write a brief sentiment analysis, answer only with emotion and it scaled (1 to 5), for example: happy, 4' },
+  { title: 'generate action point', key: 'ACTION_POINT', value: 'generate action point for given text' },
   { title: 'explain this', key: 'EXAPLAIN', value: 'explain following text in simple terms' },
   { title: 'continue writing', key: 'CONTINUE_WRITING', value: 'continue writing the following text' },
   { title: 'brainstorm ideas', key: 'BRAINSTORM_IDEAS', value: 'brain storm ideas on the following text' },

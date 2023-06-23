@@ -13,7 +13,7 @@ const getCompletion = async (prompt) => {
       messages: [
         {
           role: "system",
-          content: "You are friendly assistant working in automated workflows environment.",
+          content: "",
         },
         {
           role: "user",
